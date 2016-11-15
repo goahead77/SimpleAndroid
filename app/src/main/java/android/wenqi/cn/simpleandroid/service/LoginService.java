@@ -19,7 +19,7 @@ public class LoginService {
     public String login(String userName,String pwd) throws IOException {
         OkHttpClient client=new OkHttpClient();
         String json="{\"userName\":\""+userName+"\",\"pwd\":\""+pwd+"\"}";
-        String url="http://localhost:8080/android/login";
+        String url="http://192.168.0.128:8080/android/login";
         Log.d("json",json);
         RequestBody requestBody=RequestBody.create(MediaType.parse("application/json; charset=utf-8"),json);
         Request request = new Request.Builder()

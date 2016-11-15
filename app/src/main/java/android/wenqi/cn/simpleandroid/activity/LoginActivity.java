@@ -2,6 +2,7 @@ package android.wenqi.cn.simpleandroid.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -28,19 +29,32 @@ public class LoginActivity extends AppCompatActivity {
     }
     class ClickListener implements View.OnClickListener{
 
+        private String userName;
+
+        private String pwd;
+
         @Override
         public void onClick(View view) {
             EditText userNameEditText= (EditText) findViewById(R.id.userNameEditText);
             EditText userPwdEditText= (EditText) findViewById(R.id.userPwdEditText);
-            String userName=userNameEditText.getText().toString();
-            String pwd=userPwdEditText.getText().toString();
-            LoginService loginService=new LoginService();
-            try {
-                String result=loginService.login(userName,pwd);
-                Toast.makeText(getApplicationContext(),"登录结果："+result,Toast.LENGTH_LONG).show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            userName=userNameEditText.getText().toString();
+            pwd=userPwdEditText.getText().toString();
+            new Thread(runnable).start();
         }
+        Runnable runnable=new Runnable() {
+            @Override
+            public void run() {
+                LoginService loginService=new LoginService();
+                try {
+                    loginService.login(userName,pwd);
+                    String result=loginService.login(userName,pwd);
+                    Toast.makeText(getApplicationContext(),"登录结果："+result,Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    Toast.makeText(getApplicationContext(),"登录异常",Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }
+            }
+        };
     }
+
 }
