@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SimpleAndroid</string>
+    <string name="login_submit">登录</string>
+    <string name="login_reg">注册</string>
+    <string name="login_userName">用户名</string>
+    <string name="login_pwd">密 码</string>
+</resources>
