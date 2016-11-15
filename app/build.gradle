@@ -26,4 +26,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.0.0'
     testCompile 'junit:junit:4.12'
+    // https://mvnrepository.com/artifact/com.squareup.okhttp/okhttp
+    compile group: 'com.squareup.okhttp', name: 'okhttp', version: '2.7.5'
+
 }

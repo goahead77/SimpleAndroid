@@ -7,8 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.view.View;
 import android.wenqi.cn.simpleandroid.R;
+import android.wenqi.cn.simpleandroid.service.LoginService;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.io.IOException;
 
 /**
  * @author wenqi
@@ -31,14 +34,12 @@ public class LoginActivity extends AppCompatActivity {
             EditText userPwdEditText= (EditText) findViewById(R.id.userPwdEditText);
             String userName=userNameEditText.getText().toString();
             String pwd=userPwdEditText.getText().toString();
-            if("admin".equals(userName) &&"admin".equals(pwd)){
-                Intent intent=new Intent();
-                intent.putExtra("userName",userName);
-                intent.setClass(getApplicationContext(),MainActivity.class);
-                startActivity(intent);
-            }
-            else {
-                Toast.makeText(getApplicationContext(),"账号或密码输入错误",Toast.LENGTH_LONG).show();
+            LoginService loginService=new LoginService();
+            try {
+                String result=loginService.login(userName,pwd);
+                Toast.makeText(getApplicationContext(),"登录结果："+result,Toast.LENGTH_LONG).show();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
