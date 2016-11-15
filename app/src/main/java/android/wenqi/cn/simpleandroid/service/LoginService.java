@@ -28,7 +28,6 @@ public class LoginService {
                 .build();
 
         Response response = client.newCall(request).execute();
-        Log.d("response",response.body().toString());
         return response.body().string();
     }
 

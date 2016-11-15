@@ -8,6 +8,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.wenqi.cn.simpleandroid.R;
 import android.wenqi.cn.simpleandroid.service.LoginService;
@@ -54,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     loginService.login(userName,pwd);
                     String result=loginService.login(userName,pwd);
+                    Log.d("loginResult",result);
                     Message message=new Message();
                     Bundle bundle=new Bundle();
                     bundle.putString("result",result);
