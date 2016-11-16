@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                 String result= null;
                 try {
                     result = loginService.login(userName,pwd);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     Log.e("Exception",e.getMessage());
                 }
                 Log.d("loginResult",result);
@@ -74,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                     if(apiResult.getCode()==200){
                         Intent intent=new Intent();
                         intent.setClass(getApplicationContext(),MainActivity.class);
+                        intent.putExtra("userName",userName);
                         startActivity(intent);
                     }else if(apiResult.getCode()==500){
                         Toast.makeText(getApplicationContext(),apiResult.getMsg(),Toast.LENGTH_LONG).show();

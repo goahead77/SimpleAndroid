@@ -1,7 +1,7 @@
 package android.wenqi.cn.simpleandroid.service;
 
 import android.util.Log;
-import android.wenqi.cn.simpleandroid.utils.MD5Util;
+import android.wenqi.cn.simpleandroid.utils.DES;
 
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
@@ -10,7 +10,6 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
-import java.lang.ref.SoftReference;
 import java.util.Date;
 import java.util.UUID;
 
@@ -23,15 +22,15 @@ public class LoginService {
     private String ip1="192.168.1.105";//home
     private String ip2="192.168.0.128";//company
 
-    public String login(String userName,String pwd) throws IOException {
+    public String login(String userName,String pwd) throws Exception {
         OkHttpClient client=new OkHttpClient();
         String json="{\"userName\":\""+userName+"\",\"pwd\":\""+pwd+"\"}";
-        String url="http://"+ip1+":8080/android/login";
+        String url="http://"+ip2+":8080/android/login";
         Log.d("json",json);
         RequestBody requestBody=RequestBody.create(MediaType.parse("application/json; charset=utf-8"),json);
-        String msg=MD5Util.string2MD5(userName+","+"fawzi77");
+        String msg= DES.encryptDES(userName+","+"fawzi77");
         Log.i("加密后信息",msg);
-        Log.i("解密后信息",MD5Util.md52String(msg));
+        Log.i("解密后信息",DES.decryptDES(msg));
         Request request = new Request.Builder()
                 .url(url)
                 .post(requestBody)

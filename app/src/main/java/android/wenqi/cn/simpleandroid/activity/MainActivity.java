@@ -13,6 +13,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Intent intent = getIntent();
         String userName = intent.getStringExtra("userName");
-        this.setTitle("欢迎" + userName);
+        this.setTitle("恭喜" + userName+"登录成功");
     }
 }
