@@ -27,20 +27,8 @@ public class LoginService {
         String json="{\"userName\":\""+userName+"\",\"pwd\":\""+pwd+"\"}";
         String url="http://"+ip2+":8080/android/login";
         Log.d("json",json);
-        RequestBody requestBody=RequestBody.create(MediaType.parse("application/json; charset=utf-8"),json);
-        String msg= DES.encryptDES(userName+","+"fawzi77");
-        Log.i("加密后信息",msg);
-        Log.i("解密后信息",DES.decryptDES(msg));
-        Request request = new Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .header("user-authority", msg)
-                .header("apiKey", UUID.randomUUID().toString())
-                .header("Content-Safety",String.valueOf(new Date().getTime()))
-                .build();
-
-        Response response = client.newCall(request).execute();
-        return response.body().string();
+        HttpClient httpClient=new HttpClient();
+        return httpClient.post(url,json);
     }
 
 }
