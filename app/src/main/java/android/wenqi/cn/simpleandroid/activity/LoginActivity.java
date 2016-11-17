@@ -26,11 +26,8 @@ import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity {
     private String userName;
-
     private String pwd;
-
     private MyHandler handler;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +59,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
-
     class ClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
@@ -84,7 +80,6 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e("Exception",e.getMessage());
                 }
                 Log.d("loginResult",result);
-//                    Handler handler=new Handler();
                     Message message=new Message();
                     Bundle bundle=new Bundle();
                     bundle.putString("result",result);
