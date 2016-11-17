@@ -28,12 +28,15 @@ public class LoginActivity extends AppCompatActivity {
     private String userName;
 
     private String pwd;
+
+    private MyHandler handler;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
         findViewById(R.id.loginSubmitBtn).setOnClickListener(new ClickListener());
-        MyHandler handler=new MyHandler();
+        handler=new MyHandler();
     }
 
     class MyHandler extends Handler{
@@ -81,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e("Exception",e.getMessage());
                 }
                 Log.d("loginResult",result);
-                    Handler handler=new Handler();
+//                    Handler handler=new Handler();
                     Message message=new Message();
                     Bundle bundle=new Bundle();
                     bundle.putString("result",result);
