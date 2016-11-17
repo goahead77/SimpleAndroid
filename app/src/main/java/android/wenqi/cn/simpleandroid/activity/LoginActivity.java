@@ -36,6 +36,13 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.loginSubmitBtn).setOnClickListener(new ClickListener());
     }
 
+    public void goMainPage(View view){
+        Intent intent=new Intent();
+        intent.putExtra("userName","匿名用户");
+        intent.setClass(this,MainActivity.class);
+        startActivity(intent);
+    }
+
     class MyHandler extends Handler{
         @Override
         public void handleMessage(Message msg) {
