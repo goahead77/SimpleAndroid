@@ -35,8 +35,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
-        findViewById(R.id.loginSubmitBtn).setOnClickListener(new ClickListener());
         handler=new MyHandler();
+        findViewById(R.id.loginSubmitBtn).setOnClickListener(new ClickListener());
     }
 
     class MyHandler extends Handler{
