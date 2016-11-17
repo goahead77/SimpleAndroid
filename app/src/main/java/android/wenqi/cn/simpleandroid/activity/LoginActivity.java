@@ -25,22 +25,42 @@ import java.io.IOException;
  */
 
 public class LoginActivity extends AppCompatActivity {
+    private String userName;
 
+    private String pwd;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
         findViewById(R.id.loginSubmitBtn).setOnClickListener(new ClickListener());
-
+        MyHandler handler=new MyHandler();
     }
+
+    class MyHandler extends Handler{
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if(msg.what==1){
+                Object result=msg.getData().get("result");
+                if(result!=null){
+                    String resultJson=result.toString();
+                    Gson gson=new Gson();
+                    ApiResult apiResult=gson.fromJson(resultJson, ApiResult.class);
+                    if(apiResult.getCode()==200){
+                        Toast.makeText(getApplicationContext(),apiResult.getMsg(),Toast.LENGTH_LONG).show();
+                        Intent intent=new Intent();
+                        intent.setClass(getApplicationContext(),MainActivity.class);
+                        intent.putExtra("userName",userName);
+                        startActivity(intent);
+                    }else if(apiResult.getCode()==500){
+                        Toast.makeText(getApplicationContext(),apiResult.getMsg(),Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        }
+    }
+
     class ClickListener implements View.OnClickListener{
-
-        private String userName;
-
-        private String pwd;
-
-        private Handler handler;
-
         @Override
         public void onClick(View view) {
             EditText userNameEditText= (EditText) findViewById(R.id.userNameEditText);
@@ -49,14 +69,11 @@ public class LoginActivity extends AppCompatActivity {
             pwd=userPwdEditText.getText().toString();
             new Thread(runnable).start();
         }
-
         Runnable runnable=new Runnable() {
             @Override
             public void run() {
                 Looper.prepare();
-                handler=new Handler();
                 LoginService loginService=new LoginService();
-
                 String result= null;
                 try {
                     result = loginService.login(userName,pwd);
@@ -64,21 +81,13 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e("Exception",e.getMessage());
                 }
                 Log.d("loginResult",result);
+                    Handler handler=new Handler();
                     Message message=new Message();
                     Bundle bundle=new Bundle();
                     bundle.putString("result",result);
                     message.setData(bundle);
-                    handler.handleMessage(message);
-                    Gson gson=new Gson();
-                    ApiResult apiResult=gson.fromJson(result, ApiResult.class);
-                    if(apiResult.getCode()==200){
-                        Intent intent=new Intent();
-                        intent.setClass(getApplicationContext(),MainActivity.class);
-                        intent.putExtra("userName",userName);
-                        startActivity(intent);
-                    }else if(apiResult.getCode()==500){
-                        Toast.makeText(getApplicationContext(),apiResult.getMsg(),Toast.LENGTH_LONG).show();
-                    }
+                    message.what=1;
+                    handler.sendMessage(message);
             }
         };
 

@@ -1,5 +1,7 @@
 package android.wenqi.cn.simpleandroid.service;
 
+import android.wenqi.cn.simpleandroid.utils.DES;
+
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -24,10 +26,10 @@ public class HttpClient {
      * @return 接口返回
      * @throws IOException 异常
      */
-    public String get(String url) throws IOException {
+    public String get(String url) throws Exception {
         Request request = new Request.Builder()
                 .url(url)
-                .header("user-authority", UUID.randomUUID().toString().replace("-","")+",fawzi77")
+                .header("user-authority", DES.encryptDES(UUID.randomUUID().toString().replace("-","")+",fawzi77"))
                 .header("apiKey", UUID.randomUUID().toString())
                 .header("Content-Safety",String.valueOf(new Date().getTime()))
                 .build();
@@ -42,12 +44,12 @@ public class HttpClient {
      * @return 接口返回
      * @throws IOException 异常
      */
-    public String post(String url,String json) throws IOException {
+    public String post(String url,String json) throws Exception {
         RequestBody requestBody=RequestBody.create(MediaType.parse("application/json; charset=utf-8"),json);
         Request request = new Request.Builder()
                 .url(url)
                 .post(requestBody)
-                .header("user-authority", UUID.randomUUID().toString().replace("-","")+",fawzi77")
+                .header("user-authority", DES.encryptDES(UUID.randomUUID().toString().replace("-","")+",fawzi77"))
                 .header("apiKey", UUID.randomUUID().toString())
                 .header("Content-Safety",String.valueOf(new Date().getTime()))
                 .build();

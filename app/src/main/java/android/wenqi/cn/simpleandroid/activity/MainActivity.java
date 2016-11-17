@@ -15,8 +15,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String userName = intent.getStringExtra("userName");
         this.setTitle("恭喜" + userName+"登录成功");
-        Intent service=new Intent();
-        intent.setClass(this.getApplicationContext(), ListenerService.class);
-        startService(service);
+//        Intent service=new Intent();
+//        intent.setClass(this.getApplicationContext(), ListenerService.class);
+//        startService(service);
     }
 }

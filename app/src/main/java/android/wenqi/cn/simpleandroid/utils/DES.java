@@ -48,7 +48,7 @@ public class DES {
     }
 
     public static void main(String[] args) throws Exception {
-        String a=encryptDES("aaaaa");
+        String a=encryptDES("aaaaa,fawzi77");
         System.out.println(a);
         String b=decryptDES(a);
         System.out.println(b);
