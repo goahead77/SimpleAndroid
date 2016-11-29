@@ -44,11 +44,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendNotification(View view){
+        Bundle bundle=new Bundle();
+        bundle.putString("msdId","id");
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.icon)
                         .setContentTitle("My notification")
-                        .setContentText("Hello World!");
+                        .setContentText("Hello World!")
+                .setAutoCancel(true)
+                .setExtras(bundle);
         Intent resultIntent = new Intent(this, ResultActivity.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
 // Adds the back stack for the Intent (but not the Intent itself)
